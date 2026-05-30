@@ -35,7 +35,7 @@ body {
     text-align: center;
     display: grid;
     grid-template-rows: subgrid;
-    grid-row: span 6;
+    grid-row: span 7;
     gap: 1rem;
     border: solid 2px black;
     justify-items: center;
@@ -46,19 +46,35 @@ body {
 
 .card button {
     height: 2rem;
-    width: 100px;
+    width: 80%;
     border-radius: 0.5rem;
     border: solid 2px rgb(118, 26, 26);
     background-color: rgb(217, 84, 84);
     color: whitesmoke;
 }
 
+
 .card button:hover {
-        background-color: rgb(118, 26, 26);
+    background-color: rgb(118, 26, 26);
 }
+
 .card button:active {
-        background-color: rgb(132, 7, 7);
+    background-color: rgb(132, 7, 7);
 }
+
+.card .read-btn {
+    background-color: rgb(67, 139, 217);
+    border: solid 2px rgb(40, 82, 220);
+}
+.card .read-btn:hover {
+    background-color: rgb(40, 82, 220);
+    border: solid 2px rgb(40, 82, 220);
+}
+.card .read-btn:active {
+    background-color: rgb(23, 77, 224);
+    border: solid 2px rgb(40, 82, 220);
+}
+
 
 dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.6);

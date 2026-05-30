@@ -2,6 +2,28 @@ const grid = document.getElementsByClassName("wrapper")[0];
 const dialog = document.getElementById("add-book-dialog");
 const closeBtn = document.getElementById("close-btn");
 const confirmBtn = document.getElementById("confirm-btn");
+const myLibrary = [];
+
+function Book(title, author, pages, read) {
+  if (!new.target) {
+    throw "You must use the new keyword to instantiate new books!"
+  }
+  this.id = crypto.randomUUID();
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+  this.read = read;
+}
+
+function addBookToLibrary(book) {
+  myLibrary.push(book);
+}
+
+Book.prototype.setReadStatus = function() {
+  this.read = !this.read;
+  showBooks(myLibrary, grid);
+  console.log(`${this.title} read status: ${this.read}`);
+}
 
 closeBtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -24,24 +46,6 @@ dialog.addEventListener("close", () => {
   console.log(dialog.returnValue);
 })
 
-const myLibrary = [];
-
-function Book(title, author, pages, read) {
-  if (!new.target) {
-    throw "You must use the new keyword to instantiate new books!"
-  }
-  this.id = crypto.randomUUID();
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.readStatus = this.read ? "Already read." : "Haven't been read.";
-
-}
-
-function addBookToLibrary(book) {
-  myLibrary.push(book);
-}
 
 const book1 = new Book("The Book", "Andy Man", 420, false);
 const book2 = new Book("Dolphin Paradise", "The Deep", 67, true);
@@ -91,15 +95,21 @@ function createBookCard(book) {
 
 
   const read = document.createElement("p");
-  const readText = document.createTextNode(book.readStatus);
+  const readText = document.createTextNode(book.read ? "Already read." : "Haven't been read.");
   read.classList.add("read");
   read.appendChild(readText);
+
+  const readBtn = document.createElement("button");
+  readBtn.classList.add("read-btn");
+  readBtn.textContent = "Change Read Status";
 
   const removeBtn = document.createElement("button");
   removeBtn.textContent = "Remove";
   
-  card.append(id, title, author, pages, read, removeBtn);
+  card.append(id, title, author, pages, read, readBtn, removeBtn);
   card.dataset.id = book.id;
+
+  readBtn.addEventListener("click", () => book.setReadStatus());
   removeBtn.addEventListener("click", () => removeBook(book.id));
 
   return card
