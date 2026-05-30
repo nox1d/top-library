@@ -1,4 +1,28 @@
 const grid = document.getElementsByClassName("wrapper")[0];
+const dialog = document.getElementById("add-book-dialog");
+const closeBtn = document.getElementById("close-btn");
+const confirmBtn = document.getElementById("confirm-btn");
+
+closeBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  dialog.close()
+});
+
+dialog.addEventListener("submit", (e) => {
+  const form = dialog.querySelector("form");
+  const formData = new FormData(form);
+  const bookData = Object.fromEntries(formData.entries());
+
+  addBookToLibrary(new Book(bookData.title, bookData.author, bookData.pages, bookData.read));
+  showBooks(myLibrary, grid);
+
+
+  dialog.close(JSON.stringify(bookData));
+});
+
+dialog.addEventListener("close", () => {
+  console.log(dialog.returnValue);
+})
 
 const myLibrary = [];
 
@@ -68,6 +92,7 @@ function createBookCard(book) {
 }
 
 function showBooks(arr, grid) {
+  grid.textContent = "";
   for (let i of arr) {
     let card = createBookCard(i);
     grid.appendChild(card);
