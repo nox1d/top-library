@@ -22,10 +22,12 @@ function addBookToLibrary(book) {
 const book1 = new Book("The Book", "Andy Man", 420, false);
 const book2 = new Book("Dolphin Paradise", "The Deep", 67, true);
 const book3 = new Book("Black", "Black Noir", 100, false);
+const book4 = new Book("Scorched Earth", "Homelander", 1234, true);
 
 addBookToLibrary(book1);
 addBookToLibrary(book2);
 addBookToLibrary(book3);
+addBookToLibrary(book4);
 
 console.log(myLibrary);
 
