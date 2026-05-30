@@ -1,3 +1,5 @@
+const grid = document.getElementsByClassName("wrapper")[0];
+
 const myLibrary = [];
 
 function Book(title, author, pages, read) {
@@ -9,6 +11,7 @@ function Book(title, author, pages, read) {
   this.author = author;
   this.pages = pages;
   this.read = read;
+  this.readStatus = this.read ? "Already read." : "Haven't been read.";
 
 }
 
@@ -25,3 +28,49 @@ addBookToLibrary(book2);
 addBookToLibrary(book3);
 
 console.log(myLibrary);
+
+function createBookCard(book) {
+  const card = document.createElement("div");
+  card.classList.add("card");
+  
+  const id = document.createElement("p");
+  const idText = document.createTextNode(book.id);
+  id.classList.add("id");
+  id.appendChild(idText);
+
+  const title = document.createElement("p");
+  const titleText = document.createTextNode(book.title);
+  title.classList.add("title");
+  title.appendChild(titleText);
+  
+  const author = document.createElement("p");
+  const authorText = document.createTextNode(book.author);
+  author.classList.add("author");
+  author.appendChild(authorText);
+
+  const pages = document.createElement("p");
+  const pagesText = document.createTextNode(book.pages);
+  pages.classList.add("pages");
+  pages.appendChild(pagesText);
+
+
+  const read = document.createElement("p");
+  const readText = document.createTextNode(book.readStatus);
+  read.classList.add("read");
+  read.appendChild(readText);
+
+  card.append(id, title, author, pages, read);
+
+  return card
+
+}
+
+function showBooks(arr, grid) {
+  for (let i of arr) {
+    let card = createBookCard(i);
+    grid.appendChild(card);
+  }
+
+}
+
+showBooks(myLibrary, grid); 
