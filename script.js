@@ -55,6 +55,16 @@ addBookToLibrary(book4);
 
 console.log(myLibrary);
 
+
+function removeBook(id) {
+  const bookCard = document.querySelector(`[data-id="${id}"]`);
+  const index = myLibrary.findIndex(book => book.id === id);
+  if (index > -1) {
+    myLibrary.splice(index, 1);
+    bookCard.remove();
+  }
+}
+
 function createBookCard(book) {
   const card = document.createElement("div");
   card.classList.add("card");
@@ -85,7 +95,12 @@ function createBookCard(book) {
   read.classList.add("read");
   read.appendChild(readText);
 
-  card.append(id, title, author, pages, read);
+  const removeBtn = document.createElement("button");
+  removeBtn.textContent = "Remove";
+  
+  card.append(id, title, author, pages, read, removeBtn);
+  card.dataset.id = book.id;
+  removeBtn.addEventListener("click", () => removeBook(book.id));
 
   return card
 
